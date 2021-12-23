@@ -88,7 +88,6 @@ public class JGeometry {
         if (checkIntersectionOfTwoLineSegments(s1, s2)) {
             double a1 = s1.getP2().getY() - s1.getP1().getY();
             double b1 = s1.getP1().getX() - s1.getP2().getX();
-            ;
             double c1 = a1 * s1.getP1().getX() + b1 * s1.getP1().getY();
 
             double a2 = s2.getP2().getY() - s2.getP1().getY();
