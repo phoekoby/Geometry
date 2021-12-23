@@ -32,7 +32,7 @@ public class Segment{
 
     public boolean contains(double x, double y) {
         double k, c;
-        if (p1.getX() - p2.getX() <= ebs) {
+        if (DoubleComparator.isEqual(p1.getX(),p2.getX())) {
             return (x - p1.getX() <= ebs && p1.getY() >= Math.min(p1.getY(), p2.getY()) &&
                     p1.getX() <= Math.max(p1.getY(), p2.getY()));
         }
