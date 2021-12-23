@@ -7,11 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 
 @Getter
-public class Figure implements Shape {
+public class Polygon{
+    private final double ebs = 0.000001;
     private List<Point> listOfPoints;
     private List<Segment> segments;
 
-    public Figure(List<Point> list) {
+    public Polygon(List<Point> list) {
         if (new HashSet<>(list).size() == list.size() && list.size() > 2) {
             listOfPoints = List.copyOf(list);
             segments = new ArrayList<>();
@@ -22,10 +23,9 @@ public class Figure implements Shape {
             Point last = listOfPoints.get(listOfPoints.size() - 1);
             segments.add(new Segment(last, first));
         }
-        ;
+
     }
 
-    @Override
     public boolean contains(double x, double y) {
         boolean result = false;
         int j = listOfPoints.size() - 1;
@@ -39,20 +39,23 @@ public class Figure implements Shape {
         }
         return result;
     }
-    public double perimeter(){
+
+    public double perimeter() {
         double perimeter = 0;
         for (Segment s : segments) {
             perimeter += s.length();
         }
         return perimeter;
     }
-    public double area(){
+
+    public double area() {
         double x = 0.;
         double y = 0.;
-        for (int index = 0; index < listOfPoints.size()-1; index++) {
-            x += this.listOfPoints.get(index).getX() * this.listOfPoints.get(index+ 1).getY();
-            y += this.listOfPoints.get(index).getY() * this.listOfPoints.get(index+ 1).getX();
+        for (int index = 0; index < listOfPoints.size(); index++) {
+            int next = (index + 1 == listOfPoints.size()) ? 0 : index + 1;
+            x += listOfPoints.get(index).getX() * listOfPoints.get(next).getY();
+            y += listOfPoints.get(index).getY() * listOfPoints.get(next).getX();
         }
-        return Math.abs((x - y) / 2);
+        return Math.abs(x - y) / 2;
     }
 }
