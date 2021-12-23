@@ -1,5 +1,6 @@
 package ru.vsu.cs;
 
+import ru.vsu.cs.exceptions.JGeometryException;
 import ru.vsu.cs.shape.Point;
 import ru.vsu.cs.shape.Polygon;
 import ru.vsu.cs.shape.Segment;
@@ -135,7 +136,7 @@ public class JGeometry {
         centerX = centerX / points.size();
         centerY = centerY / points.size();
         return points.stream()
-                .sorted(new PointComparator(new Point(centerX,centerY))).
+                .sorted(new PointComparator(new Point(centerX, centerY))).
                 collect(Collectors.toList());
     }
 
@@ -156,6 +157,7 @@ public class JGeometry {
             else return 1;
         }
     }
+
     public static Polygon union(Polygon first, Polygon second) {
         List<Point> clippedCorners = new ArrayList<>();
         List<Point> listOfPointsOfFirstPolygon = first.getListOfPoints();
@@ -171,6 +173,7 @@ public class JGeometry {
         }
         return new Polygon(createListWithClockwiseOrderOfPoints(clippedCorners));
     }
+
     public static Polygon intersection(Polygon first, Polygon second) {
         List<Point> clippedCorners = new ArrayList<>();
         List<Point> listOfPointsOfFirstPolygon = first.getListOfPoints();
@@ -186,6 +189,7 @@ public class JGeometry {
         }
         return new Polygon(createListWithClockwiseOrderOfPoints(clippedCorners));
     }
+
     public static Polygon subtraction(Polygon first, Polygon second) {
         List<Point> clippedCorners = new ArrayList<>();
         List<Point> listOfPointsOfFirstPolygon = first.getListOfPoints();
@@ -200,6 +204,37 @@ public class JGeometry {
             uniquePoints(clippedCorners, getTheIntersectionPoint(segment, second));
         }
         return new Polygon(createListWithClockwiseOrderOfPoints(clippedCorners));
+    }
+
+    public static Polygon subtraction(List<Polygon> polygons) throws JGeometryException {
+        if(polygons.size()<2){
+            throw new JGeometryException("Only one polygon");
+        }
+        Polygon result = polygons.get(0);
+        for (int i = 1; i < polygons.size(); i++) {
+            result = subtraction(result, polygons.get(i));
+        }
+        return result;
+    }
+    public static Polygon intersection(List<Polygon> polygons) throws JGeometryException {
+        if(polygons.size()<2){
+            throw new JGeometryException("Only one polygon");
+        }
+        Polygon result = polygons.get(0);
+        for (int i = 1; i < polygons.size(); i++) {
+            result = intersection(result, polygons.get(i));
+        }
+        return result;
+    }
+    public static Polygon union(List<Polygon> polygons) throws JGeometryException {
+        if(polygons.size()<2){
+            throw new JGeometryException("Only one polygon");
+        }
+        Polygon result = polygons.get(0);
+        for (int i = 1; i < polygons.size(); i++) {
+            result = union(result, polygons.get(i));
+        }
+        return result;
     }
 
 }
