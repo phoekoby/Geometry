@@ -9,14 +9,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JGeometryTest {
+    //Квадрат 2x2
     private final Point p1 = new Point(0,0);
     private final Point p2 = new Point(2,0);
     private final Point p3 = new Point(2,2);
     private final Point p4 = new Point(0,2);
+    //При лобавлении после p2 получается трапеция
+    private final Point p5 = new Point(4,0);
     @Test
     public void testArea(){
         Polygon polygon = new Polygon(List.of(p1,p2,p3,p4));
         assertEquals(polygon.area(),4.0);
+        Polygon polygon3 = new Polygon(List.of(p1,p2,p5,p3,p4));
+        assertEquals(polygon3.area(),6.0);
     }
     @Test
     public void testArea2(){
