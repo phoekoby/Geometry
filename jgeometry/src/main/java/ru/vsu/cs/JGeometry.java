@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class JGeometry {
     private static final double ebs = 0.000001;
+    private JGeometry(){}
 
     public static boolean checkIntersectionOfTwoLineSegments(Segment s1,
                                                              Segment s2) {
