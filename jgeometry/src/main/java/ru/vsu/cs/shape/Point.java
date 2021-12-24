@@ -14,7 +14,6 @@ import java.util.Objects;
 @AllArgsConstructor
 
 public class Point{
-    private final double ebs = 0.000001;
     private double x, y;
 
     public double distanceTo(double x2, double y2) {

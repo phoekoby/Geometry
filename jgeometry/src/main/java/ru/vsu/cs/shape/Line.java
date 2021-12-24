@@ -6,7 +6,6 @@ import ru.vsu.cs.exceptions.JGeometryException;
 
 @Getter
 public class Line{
-    private final double ebs = 0.000001;
     private Point p1;
     private Point p2;
 
@@ -29,5 +28,4 @@ public class Line{
     public boolean contains(double x, double y) {
         return (x - p1.getX()) * (p2.getY() - p1.getY()) - (p2.getX() - p1.getX()) * (y - p1.getY()) == 0;
     }
-
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 public class Polygon{
-    private final double ebs = 0.000001;
     private List<Point> listOfPoints;
     private List<Segment> segments;
 
